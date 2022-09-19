@@ -20,25 +20,22 @@ export interface features {
   value: string | null,
 }
 
-export interface QueryPhoto {
+export interface QueryStyle {
   style_id: number,
   name: string,
   sale_price: number | null,
   original_price: number,
   default_style: boolean,
-  product_id: number,
+  product_id: number
+}
+
+export interface QueryPhoto extends QueryStyle {
   id: number,
   thumbnail_url: string,
   url: string
 }
 
-export interface QuerySKU {
-  style_id: number,
-  name: string,
-  sale_price: number | null,
-  original_price: number,
-  default_style: boolean,
-  product_id: number,
+export interface QuerySKU extends QueryStyle{
   sku_id: number,
   size: string,
   quantity: number,

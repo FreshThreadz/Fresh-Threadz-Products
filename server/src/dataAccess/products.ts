@@ -4,13 +4,13 @@ import * as format from '../Utilities/formatData';
 import * as postgres from '../Utilities/queryStrings'
 import { Transform } from 'stream';
 
-// Modify Products to return page and count
 export async function getProducts (page:string = '1', count:string = '5'):Promise<I.Product[]> {
   const { rows } : { rows:[] } = await connection.query(postgres.getProducts(page, count));
   return rows;
 }
 
 export async function getProductInfo (id:string='1'):Promise<I.ProductInfo> {
+
   const [resultInfo, resultFeatures] = await Promise.all([
     connection.query(postgres.getProductInfo(id)),
     connection.query(postgres.getProductFeatures(id))
@@ -24,13 +24,16 @@ export async function getProductInfo (id:string='1'):Promise<I.ProductInfo> {
 
 export async function getProductStyles (id:string='1'):Promise<I.ProductStyles> {
   const [resultSKUs, resultPhotos] = await Promise.all([
-    connection.query(postgres.getStyleSKUs(id)),
-    connection.query(postgres.getStylePhotos(id))
+    connection.query(postgres.getStyleSKUsTest(id)),
+    connection.query(postgres.getStylePhotosTest(id))
   ]);
 
   const result = format.Styles(resultSKUs.rows, resultPhotos.rows)
-
   return { "product_id": id, results: result };
+
+  // const result = await connection.query(postgres.getStyleskat(id))
+
+  // return result.rows[0];
 }
 
 export async function getProductRelated (id:string='1'):Promise<string[]> {
