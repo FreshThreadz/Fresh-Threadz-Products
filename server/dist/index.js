@@ -7,20 +7,18 @@ const express_1 = __importDefault(require("express"));
 const routes_1 = require("./routes");
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
+const morgan = require('morgan');
 const app = (0, express_1.default)();
 const port = process.env.PORT;
-// connectionDemo();
+app.use(morgan());
 app.use(express_1.default.json());
 app.use('/products', routes_1.router);
-app.get('/', (req, res) => {
-    res.setHeader('content-type', 'text/html').sendFile('/Users/aifunlook/Documents/RFP2207/rfp2207-SDC-superman/client/dist/index.html');
-});
-app.get('/bundle.js', (req, res) => {
-    res.setHeader('content-type', 'application/javascript').sendFile('/Users/aifunlook/Documents/RFP2207/rfp2207-SDC-superman/client/dist/bundle.js');
-});
-// app.get('/', (req: Request, res: Response) => {
-//   res.send('Express + TypeScript Server');
-// });
 app.listen(port, () => {
     console.log(`[server]: Server is running at https://localhost:${port}`);
 });
+// app.get('/', (req: Request, res: Response) => {
+//   res.setHeader('content-type', 'text/html').sendFile('/Users/aifunlook/Documents/RFP2207/rfp2207-SDC-superman/client/dist/index.html');
+// });
+// app.get('/bundle.js', (req: Request, res: Response) => {
+//   res.setHeader('content-type', 'application/javascript').sendFile('/Users/aifunlook/Documents/RFP2207/rfp2207-SDC-superman/client/dist/bundle.js');
+// });

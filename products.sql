@@ -77,3 +77,30 @@ CREATE TABLE related (
 \copy skus (sku_id, style_id, size, quantity) from '/Users/aifunlook/Documents/RFP2207/rfp2207-SDC-superman/csv/skus.csv' WITH (FORMAT CSV, HEADER);
 
 \copy photos (id, style_id, url, thumbnail_url) from '/Users/aifunlook/Documents/RFP2207/rfp2207-SDC-superman/csv/photos.csv' delimiter ',' quote '\' escape '"' csv header;
+
+CREATE INDEX Product_Info_product_id_idx ON Product_Info(product_id);
+
+CREATE INDEX features_product_id_idx ON features(product_id);
+
+CREATE INDEX Product_Styles_product_id_styles_id_idx ON product_styles (product_id, style_id);
+
+CREATE INDEX Product_Styles_style_id_idx ON product_styles(style_id);
+
+CREATE INDEX Photos_styles_id_idx ON photos(style_id);
+
+CREATE INDEX Skus_style_id_idx ON skus(style_id);
+
+CREATE INDEX Related_product_id_idx ON related(product_id);
+
+-- CREATE TABLE WTF (
+--   product_id SERIAL,
+--   name VARCHAR(300),
+--   slogan VARCHAR(300),
+--   description TEXT,
+--   category TEXT,
+--   default_price INT,
+--   PRIMARY KEY (product_id),
+--   features jsonb,
+--   related, jsonb,
+--   styles, jsonb
+-- )
