@@ -30,10 +30,6 @@ export async function getProductStyles (id:string='1'):Promise<I.ProductStyles> 
 
   const result = format.Styles(resultSKUs.rows, resultPhotos.rows)
   return { "product_id": id, results: result };
-
-  // const result = await connection.query(postgres.getStyleskat(id))
-
-  // return result.rows[0];
 }
 
 export async function getProductRelated (id:string='1'):Promise<string[]> {

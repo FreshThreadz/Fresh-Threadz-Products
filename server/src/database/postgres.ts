@@ -1,11 +1,11 @@
 const { Pool } = require('pg');
 
 export const connection = new Pool({
-    user: process.env.USER,
-    database: "products",
-    password: process.env.PASS,
-    port: 5432,
-    host: process.env.HOST,
+    user: process.env.PGUSER,
+    database: process.env.PGDATABASE,
+    password: process.env.PGPASSWORD,
+    port: process.env.PGPORT,
+    host: process.env.PGHOST,
 });
 
 export async function connectionDemo():Promise<void> {
