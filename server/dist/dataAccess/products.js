@@ -49,8 +49,6 @@ async function getProductStyles(id = '1') {
     ]);
     const result = format.Styles(resultSKUs.rows, resultPhotos.rows);
     return { "product_id": id, results: result };
-    // const result = await connection.query(postgres.getStyleskat(id))
-    // return result.rows[0];
 }
 exports.getProductStyles = getProductStyles;
 async function getProductRelated(id = '1') {
