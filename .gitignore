@@ -1,7 +1,8 @@
 /client/dist/bundle.js
+products.pgsql
 node_modules
 .env
 FEC_BMW.pem
-csv
 SDC-KEY-AWS.pem
-products.pgsql
+EAST-SDC.pem
+csv

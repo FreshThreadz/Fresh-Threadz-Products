@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-ATELIER_API = "https://app-hrsei-api.herokuapp.com/api/fec2/rfp";
+ATELIER_API = "http://54.183.160.226";
 
 //////////////////////////////////// RR BUCKET
 module.exports.getReviewsByCount = (id, sortBy, displayedReviews, count) =>
