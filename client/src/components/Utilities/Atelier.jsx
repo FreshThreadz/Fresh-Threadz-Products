@@ -1,6 +1,7 @@
 const axios = require("axios");
 
-ATELIER_API = "http://54.183.160.226";
+ATELIER_API = "https://app-hrsei-api.herokuapp.com/api/fec2/rfp";
+const PRODUCTS_API = "http://54.183.160.226"
 
 //////////////////////////////////// RR BUCKET
 module.exports.getReviewsByCount = (id, sortBy, displayedReviews, count) =>
@@ -39,19 +40,19 @@ module.exports.reportReview = (id) =>
 ////////////////////////////////////
 
 module.exports.getRelatedProductIds = (id) =>
-  axios.get(`${ATELIER_API}/products/${id}/related`, {
+  axios.get(`${PRODUCTS_API}/products/${id}/related`, {
     headers: { Authorization: process.env.KEY },
   });
 
 /////////////////////////////////////////
 
 module.exports.getProductInfo = (id) =>
-  axios.get(`${ATELIER_API}/products/${id}`, {
+  axios.get(`${PRODUCTS_API}/products/${id}`, {
     headers: { Authorization: process.env.KEY },
   });
 
 module.exports.getProductStyle = (id) =>
-  axios.get(`${ATELIER_API}/products/${id}/styles`, {
+  axios.get(`${PRODUCTS_API}/products/${id}/styles`, {
     headers: { Authorization: process.env.KEY },
   });
 

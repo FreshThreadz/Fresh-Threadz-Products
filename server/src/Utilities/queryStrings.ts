@@ -38,41 +38,6 @@ export const getProductRelated = (id:string):string => `
     product_id=${id}
 `
 
-export const getStyleSKUs = (id:string):string => `
-  SELECT
-    skus.style_id,
-    skus.sku_id,
-    skus.quantity,
-    skus.size
-  FROM
-    product_styles
-  INNER JOIN
-    skus
-  ON
-    product_styles.style_id = skus.style_id
-  WHERE
-    product_styles.product_id = ${id}
-`
-export const getStylePhotos = (id:string):string => `
-  SELECT
-    product_styles.style_id,
-    product_styles.name,
-    product_styles.original_price,
-    product_styles.sale_price,
-    product_styles.default_style,
-
-    photos.thumbnail_url,
-    photos.url
-  FROM
-    product_styles
-  INNER JOIN
-    photos
-  ON
-    product_styles.style_id = photos.style_id
-  WHERE
-    product_styles.product_id = ${id}
-`
-
 export const getStyleSKUsTest = (id:string):string => `
   SELECT
     skus.style_id,
@@ -105,7 +70,7 @@ export const getStylePhotosTest = (id:string):string => `
     AND
     product_styles.style_id = photos.style_id
 `
-export const getStyleskat = (id:string) => `
+export const getStylesSingle = (id:string) => `
   SELECT product_id AS product_id, (
     SELECT json_agg(
       json_build_object(
@@ -135,3 +100,30 @@ export const getStyleskat = (id:string) => `
   ) FROM product_styles WHERE product_id = ${id}
 `
 
+export const getProductInfoSingle = (id:String) => `
+  SELECT
+    json_build_object (
+      'product_id', Product_Info.product_id,
+      'name', Product_Info.name,
+      'slogan', Product_Info.slogan,
+      'description', Product_Info.description,
+      'category', Product_Info.category,
+      'default_price', Product_Info.default_price,
+      'features', (
+        SELECT array_agg(row_to_json(f))
+        FROM (
+          SELECT
+            feature AS feature,
+            value AS value
+          FROM
+            features
+          WHERE
+            features.product_id = Product_Info.product_id
+        ) f
+      )
+    )
+  FROM
+    Product_Info
+  WHERE
+    product_id = ${id}
+`

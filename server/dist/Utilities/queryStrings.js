@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getStyleskat = exports.getStylePhotosTest = exports.getStyleSKUsTest = exports.getStylePhotos = exports.getStyleSKUs = exports.getProductRelated = exports.getProductFeatures = exports.getProductInfo = exports.getProducts = void 0;
+exports.getProductInfoSingle = exports.getStylesSingle = exports.getStylePhotosTest = exports.getStyleSKUsTest = exports.getProductRelated = exports.getProductFeatures = exports.getProductInfo = exports.getProducts = void 0;
 const getProducts = (page, count) => `
   SELECT
     *
@@ -41,42 +41,6 @@ const getProductRelated = (id) => `
     product_id=${id}
 `;
 exports.getProductRelated = getProductRelated;
-const getStyleSKUs = (id) => `
-  SELECT
-    skus.style_id,
-    skus.sku_id,
-    skus.quantity,
-    skus.size
-  FROM
-    product_styles
-  INNER JOIN
-    skus
-  ON
-    product_styles.style_id = skus.style_id
-  WHERE
-    product_styles.product_id = ${id}
-`;
-exports.getStyleSKUs = getStyleSKUs;
-const getStylePhotos = (id) => `
-  SELECT
-    product_styles.style_id,
-    product_styles.name,
-    product_styles.original_price,
-    product_styles.sale_price,
-    product_styles.default_style,
-
-    photos.thumbnail_url,
-    photos.url
-  FROM
-    product_styles
-  INNER JOIN
-    photos
-  ON
-    product_styles.style_id = photos.style_id
-  WHERE
-    product_styles.product_id = ${id}
-`;
-exports.getStylePhotos = getStylePhotos;
 const getStyleSKUsTest = (id) => `
   SELECT
     skus.style_id,
@@ -111,7 +75,7 @@ const getStylePhotosTest = (id) => `
     product_styles.style_id = photos.style_id
 `;
 exports.getStylePhotosTest = getStylePhotosTest;
-const getStyleskat = (id) => `
+const getStylesSingle = (id) => `
   SELECT product_id AS product_id, (
     SELECT json_agg(
       json_build_object(
@@ -140,4 +104,32 @@ const getStyleskat = (id) => `
     ) AS results FROM product_styles WHERE product_id = ${id}
   ) FROM product_styles WHERE product_id = ${id}
 `;
-exports.getStyleskat = getStyleskat;
+exports.getStylesSingle = getStylesSingle;
+const getProductInfoSingle = (id) => `
+  SELECT
+    json_build_object (
+      'product_id', Product_Info.product_id,
+      'name', Product_Info.name,
+      'slogan', Product_Info.slogan,
+      'description', Product_Info.description,
+      'category', Product_Info.category,
+      'default_price', Product_Info.default_price,
+      'features', (
+        SELECT array_agg(row_to_json(f))
+        FROM (
+          SELECT
+            feature AS feature,
+            value AS value
+          FROM
+            features
+          WHERE
+            features.product_id = Product_Info.product_id
+        ) f
+      )
+    )
+  FROM
+    Product_Info
+  WHERE
+    product_id = ${id}
+`;
+exports.getProductInfoSingle = getProductInfoSingle;
