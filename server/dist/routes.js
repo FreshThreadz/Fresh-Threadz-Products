@@ -11,3 +11,5 @@ exports.router.get('/', controllers_1.default.getProducts);
 exports.router.get('/:id', controllers_1.default.getProductInfo);
 exports.router.get('/:id/styles', controllers_1.default.getProductStyles);
 exports.router.get('/:id/related', controllers_1.default.getProductRelated);
+exports.router.get('/:id/test', controllers_1.default.getProductInfoTest);
+exports.router.get('/:id/test/styles', controllers_1.default.getProductStylesTest);

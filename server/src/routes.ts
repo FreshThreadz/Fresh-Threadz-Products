@@ -10,3 +10,8 @@ router.get('/:id', products.getProductInfo)
 router.get('/:id/styles', products.getProductStyles)
 
 router.get('/:id/related', products.getProductRelated)
+
+
+router.get('/:id/test', products.getProductInfoTest)
+
+router.get('/:id/test/styles', products.getProductStylesTest)

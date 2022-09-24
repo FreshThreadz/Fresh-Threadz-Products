@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getProductRelated = exports.getProductStyles = exports.getProductInfo = exports.getProducts = void 0;
+exports.getProductStylesTest = exports.getProductInfoTest = exports.getProductRelated = exports.getProductStyles = exports.getProductInfo = exports.getProducts = void 0;
 const dataAccess_1 = __importDefault(require("../dataAccess"));
 const getProducts = (req, res) => {
     const page = req.query.page;
@@ -37,3 +37,19 @@ const getProductRelated = (req, res) => {
         console.log(err)));
 };
 exports.getProductRelated = getProductRelated;
+const getProductInfoTest = (req, res) => {
+    const id = req.params.id;
+    dataAccess_1.default.getProductInfoTest(id)
+        .then((result) => res.status(200).json(result))
+        .catch((err) => (res.sendStatus(500),
+        console.log(err)));
+};
+exports.getProductInfoTest = getProductInfoTest;
+const getProductStylesTest = (req, res) => {
+    const id = req.params.id;
+    dataAccess_1.default.getProductStylesTest(id)
+        .then((result) => res.status(200).json(result))
+        .catch((err) => (res.sendStatus(400),
+        console.log(err)));
+};
+exports.getProductStylesTest = getProductStylesTest;
