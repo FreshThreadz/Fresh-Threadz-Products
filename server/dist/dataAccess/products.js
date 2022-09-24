@@ -25,7 +25,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getProductRelated = exports.getProductStyles = exports.getProductInfo = exports.getProducts = void 0;
 const postgres_1 = require("./../database/postgres");
-const format = __importStar(require("../Utilities/formatData"));
 const postgres = __importStar(require("../Utilities/queryStrings"));
 async function getProducts(page = '1', count = '5') {
     const { rows } = await postgres_1.connection.query(postgres.getProducts(page, count));
@@ -33,22 +32,27 @@ async function getProducts(page = '1', count = '5') {
 }
 exports.getProducts = getProducts;
 async function getProductInfo(id = '1') {
-    const [resultInfo, resultFeatures] = await Promise.all([
-        postgres_1.connection.query(postgres.getProductInfo(id)),
-        postgres_1.connection.query(postgres.getProductFeatures(id))
-    ]);
-    const [info] = resultInfo.rows;
-    const features = resultFeatures.rows;
-    return { ...info, features };
+    // const [resultInfo, resultFeatures] = await Promise.all([
+    //   connection.query(postgres.getProductInfo(id)),
+    //   connection.query(postgres.getProductFeatures(id))
+    // ])
+    // const [info] = resultInfo.rows;
+    // const features = resultFeatures.rows
+    // return {...info, features};
+    const { rows: result } = await postgres_1.connection.query(postgres.getProductInfoSingle(id));
+    return result[0].json_build_object;
 }
 exports.getProductInfo = getProductInfo;
 async function getProductStyles(id = '1') {
-    const [resultSKUs, resultPhotos] = await Promise.all([
-        postgres_1.connection.query(postgres.getStyleSKUsTest(id)),
-        postgres_1.connection.query(postgres.getStylePhotosTest(id))
-    ]);
-    const result = format.Styles(resultSKUs.rows, resultPhotos.rows);
-    return { "product_id": id, results: result };
+    // const [resultSKUs, resultPhotos] = await Promise.all([
+    //   connection.query(postgres.getStyleSKUsTest(id)),
+    //   connection.query(postgres.getStylePhotosTest(id))
+    // ]);
+    // console.log(resultSKUs.rows, resultPhotos.rows);
+    // const result = format.Styles(resultSKUs.rows, resultPhotos.rows)
+    // return { "product_id": id, results: result };
+    const { rows: result } = await postgres_1.connection.query(postgres.getStylesSingle(id));
+    return result[0];
 }
 exports.getProductStyles = getProductStyles;
 async function getProductRelated(id = '1') {

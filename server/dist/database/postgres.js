@@ -3,11 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.connectionDemo = exports.connection = void 0;
 const { Pool } = require('pg');
 exports.connection = new Pool({
-    user: process.env.USER,
-    database: "products",
-    password: process.env.PASS,
-    port: 5432,
-    host: process.env.HOST,
+    user: process.env.PGUSER,
+    database: process.env.PGDATABASE,
+    password: process.env.PGPASSWORD,
+    port: process.env.PGPORT,
+    host: process.env.PGHOST,
 });
 async function connectionDemo() {
     const query = "SELECT * FROM related LIMIT 2";
