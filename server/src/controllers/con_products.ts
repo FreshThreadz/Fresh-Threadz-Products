@@ -48,3 +48,27 @@ export const getProductRelated = (req: Request, res: Response):void => {
     console.log(err)
   ));
 }
+
+export const getProductInfoTest = (req: Request, res: Response):void => {
+  const id:any = req.params.id;
+  dataAccessProducts.getProductInfoTest(id)
+  .then((result) =>
+    res.status(200).json(result)
+  )
+  .catch((err) => (
+    res.sendStatus(500),
+    console.log(err)
+  ));
+}
+
+export const getProductStylesTest = (req: Request, res: Response):void => {
+  const id:any = req.params.id;
+  dataAccessProducts.getProductStylesTest(id)
+  .then((result) =>
+    res.status(200).json(result)
+  )
+  .catch((err) => (
+    res.sendStatus(400),
+    console.log(err)
+  ));
+}
